@@ -45,10 +45,7 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 " javascript
-au BufNewFile,BufRead *.js, *.html, *.css, *.jsx, *.vue
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
+au BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.vue set tabstop=2 softtabstop=2 shiftwidth=2
 
 autocmd Filetype go setlocal noexpandtab
 
@@ -62,13 +59,16 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 call plug#begin('~/.vim/plugged')
 
 Plug 'posva/vim-vue'
+let g:vue_disable_pre_processors=1
+autocmd FileType vue syntax sync fromstart
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css.less.pug
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
 
-let g:ale_fixers = {'vue': ['remove_trailing_lines', 'trim_whitespace'], 'javascript': ['prettier', 'eslint']}
+let g:ale_fixers = {'vue': ['remove_trailing_lines', 'trim_whitespace'], 'javascript': ['eslint']}
 let g:ale_fix_on_save = 1
 let g:ale_linter_aliases = {'vue': ['javascript', 'html', 'scss']}
 
